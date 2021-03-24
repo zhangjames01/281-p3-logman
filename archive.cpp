@@ -36,6 +36,11 @@ void archive::readMasterLog(string fileName) {
         
         // Pushes that log entry into the master list vector.
         masterLog.push_back(temp);
+
+        // Makes category lowercase so categories are case insensitive when being worked with.
+        transform(temp.category.begin(), temp.category.end(), temp.category.begin(), ::tolower);
+        // Pushes each new category and stores the respective entry ID for that log.
+        categoryLog[temp.category].push_back(temp.entryID);
         
         // Increment number of entries just read in.
         ++ numEntries;
@@ -218,7 +223,25 @@ void archive::matchingSearch() {
 
 // Searches all log entries with the matching category. (c)
 void archive::categorySearch() {
+    size_t totalSearches = 0;
+    // Read in rest of input to retrieve matching category.
+    string category;
+    getline(cin, category);
+    // Remove extra space read in using getline.
+    category.erase(category.begin(), category.begin() + 1);
+    // Makes category lowercase so categories are case insensitive when being worked with.
+    transform(category.begin(), category.end(), category.begin(), ::tolower);
     
+    // Search up log entries if there is a matching category.
+    if (categoryLog.find(category) != categoryLog.end()) {
+        for (uint32_t i = 0; i < categoryLog[category].size(); ++ i) {
+            // Add log entries by the entry ID.
+            recentSearches.push_back(masterLogIndices[categoryLog[category][i]]);
+        }
+        totalSearches = categoryLog[category].size();
+    }
+    
+    cout << "Category search: " << totalSearches << " entries found\n";
 }
 
 // Searches all log entries that contain every keyword given. (k)
@@ -268,32 +291,87 @@ void archive::storeOrigMasterLog() {
 
 // Append all log entries returned by most recent previous search. (r)
 void archive::appendSearchResults() {
+    size_t entriesAppended = 0;
     
+    // Add all log entries from recent search to excerpt list. Should be sorted already.
+    for (uint32_t i = 0; i < recentSearches.size(); ++ i) {
+        excerptList.push_back(recentSearches[i]);
+    }
+    entriesAppended = recentSearches.size();
+    
+    cout << entriesAppended << " log entries appended\n";
 }
 
-// Delete log entry by given position(entryID). (d)
+// Delete log entry by given position. (d)
 void archive::deleteLogEntry() {
+    // Read in rest of input to retrieve position for excerpt list.
+    uint32_t position;
+    cin >> position;
     
+    // Checks if position is valid.
+    if (position < 0 || position >= excerptList.size()) {
+        cerr << "Invalid log entry position. Please enter valid position.\n";
+        return;
+    }
+    
+    // Delete log entry at given position.
+    excerptList.erase(excerptList.begin() + position);
+    
+    cout << "Deleted excerpt list entry " << position << "\n";
 }
 
-// Move log entry at given position(entryID) to the beginning of excerpt list. (b)
+// Move log entry at given position to the beginning of excerpt list. (b)
 void archive::moveToBeginning() {
+    // Read in rest of input to retrieve position excerpt list.
+    uint32_t position;
+    cin >> position;
     
+    // Checks if position is valid.
+    if (position < 0 || position >= excerptList.size()) {
+        cerr << "Invalid log entry position. Please enter valid position.\n";
+        return;
+    }
+    
+    // Store log entry in a temporary.
+    uint32_t entryMoved = excerptList[position];
+    // Delete log entry at given position.
+    excerptList.erase(excerptList.begin() + position);
+    // Push the log entry to the beginning of the excerpt list.
+    excerptList.push_front(entryMoved);
+    
+    cout << "Moved excerpt list entry " << position << "\n";
 }
 
-// Move log entry at given position(entryID) to the end of excerpt list. (e)
+// Move log entry at given position to the end of excerpt list. (e)
 void archive::moveToEnd() {
+    // Read in rest of input to retrieve position excerpt list.
+    uint32_t position;
+    cin >> position;
     
+    // Checks if position is valid.
+    if (position < 0 || position >= excerptList.size()) {
+        cerr << "Invalid log entry position. Please enter valid position.\n";
+        return;
+    }
+    
+    // Store log entry in a temporary.
+    uint32_t entryMoved = excerptList[position];
+    // Delete log entry at given position.
+    excerptList.erase(excerptList.begin() + position);
+    // Push the log entry to the end of the excerpt list.
+    excerptList.push_back(entryMoved);
+    
+    cout << "Moved excerpt list entry " << position << "\n";
 }
 
 // Sort excerpt list by timestamp -> category -> entryID. (s)
 void archive::sortExcerptList() {
-    
+    sort(excerptList.begin(), excerptList.end());
 }
 
 // Removes all entries from the excerpt list. (l)
 void archive::clearExcerptList() {
-    
+    excerptList.clear();
 }
 
 // ----------------------------------------------------------------------------

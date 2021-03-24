@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -52,13 +53,13 @@ public:
     // Append all log entries returned by most recent previous search. (r)
     void appendSearchResults();
     
-    // Delete log entry by given position(entryID). (d)
+    // Delete log entry by given position. (d)
     void deleteLogEntry();
     
-    // Move log entry at given position(entryID) to the beginning of excerpt list. (b)
+    // Move log entry at given position to the beginning of excerpt list. (b)
     void moveToBeginning();
     
-    // Move log entry at given position(entryID) to the end of excerpt list. (e)
+    // Move log entry at given position to the end of excerpt list. (e)
     void moveToEnd();
     
     // Sort excerpt list by timestamp -> category -> entryID. (s)
@@ -114,10 +115,10 @@ private:
     
     // Comparator for finding lower and upper bounds for timestamps search.
     struct timestampComparator {
-        bool operator() (const int64_t timestamp, const entry& e1) const {                     // USED BY UPPER_BOUND
+        bool operator() (const int64_t timestamp, const entry& e1) const { // Used by upper_bound
             return timestamp < e1.timestampNum;
         }
-        bool operator() (const entry& e1, const int64_t timestamp) const {                    // USED BY LOWER_BOUND
+        bool operator() (const entry& e1, const int64_t timestamp) const { // Used by lower_bound
             return e1.timestampNum < timestamp;
         }
     };
@@ -131,6 +132,13 @@ private:
     deque<uint32_t> excerptList; // Excerpt list of log entries using indices.
     
     vector<uint32_t> recentSearches; // Storage of entries from recent searches.
+    
+    
+    // We will try using the masterlog indices so i do not have to go through master log twice and save time
+    // i.e. populate these vectors as we read in log entries, and not after sorting!!! This will have to depend on entryID
+    unordered_map<string, vector<uint32_t>> categoryLog;
+    
+    unordered_map<string, vector<uint32_t>> messageLog;
 
     bool isAppendSort = 0;
 };
