@@ -13,6 +13,7 @@
 void archive::readMasterLog(string fileName) {
     ifstream fin(fileName);
     entry temp;
+    string timestampNum;
     uint32_t numEntries = 0;
     
     // Checks if file did not open. REMOVE LATER when submitting.
@@ -20,14 +21,18 @@ void archive::readMasterLog(string fileName) {
         cout << "File did not open.\n";
         exit(1);
     }
-    // Reads in timestamp, category, and message from one log entry
+    // Reads in timestamp, category, and message from one log entry.
     while (getline(fin, temp.timestamp, '|')) {
         getline(fin, temp.category, '|');
         getline(fin, temp.message);
+        
         // Sets entryID for each log entry.
         temp.entryID = numEntries;
-        // Converts timestamp into a number for quicker comparison
-        temp.timestampNum = stoll(temp.timestamp);
+        timestampNum = temp.timestamp;
+        // Manually erase the colons from timestamp.
+        timestampNum.erase(remove(timestampNum.begin(), timestampNum.end(), ':'), timestampNum.end());
+        // Converts timestamp into a number for quicker comparison.
+        temp.timestampNum = stoll(timestampNum);
         
         // Pushes that log entry into the master list vector.
         masterLog.push_back(temp);
@@ -149,12 +154,66 @@ void archive::processCommands(char command) {
 
 // Searches all log entries with timestamps within a specified range. (t)
 void archive::timestampsSearch() {
+    uint32_t totalSearches = 0;
+    // Read in rest of input to retrieve timestamp boundaries.
+    string timestamp1, timestamp2;
+    getline(cin, timestamp1, '|');
+    // Remove extra space read in using getline delimiter.
+    timestamp1.erase(timestamp1.begin(), timestamp1.begin() + 1);
+    cin >> timestamp2;
     
+    // Checks if timestamp is valid.
+    if (timestamp1.size() != 14 || timestamp2.size() != 14) {
+        cerr << "Invalid timestamp size. Please enter proper timestamp.\n";
+        return;
+    }
+    
+    // Manually erase the colons from timestamp so it can be converted into a long long int.
+    timestamp1.erase(remove(timestamp1.begin(), timestamp1.end(), ':'), timestamp1.end());
+    timestamp2.erase(remove(timestamp2.begin(), timestamp2.end(), ':'), timestamp2.end());
+    
+    // Set lower and upper iterators to search through timestamps.
+    auto start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp1), timestampComparator());
+    auto end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp2), timestampComparator());
+    
+    // Add log entry to recent search and calculate total entries matching timestamp bounds.
+    while (start != end) {
+        recentSearches.push_back(masterLogIndices[(*start).entryID]);
+        ++ totalSearches;
+        ++ start;
+    }
+    
+    cout << "Timestamps search: " << totalSearches << " entries found\n";
 }
 
 // Searches all log entries with timestamps matching the given timestamp. (m)
 void archive::matchingSearch() {
+    uint32_t totalSearches = 0;
+    // Read in rest of input to retrieve matching timestamp.
+    string timestamp;
+    cin >> timestamp;
     
+    // Checks if timestamp is valid.
+    if (timestamp.size() != 14) {
+        cerr << "Invalid timestamp size. Please enter proper timestamp.\n";
+        return;
+    }
+    
+    // Manually erase the colons from timestamp so it can be converted into a long long int.
+    timestamp.erase(remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
+    
+    // Set lower and upper iterators to search through timestamps.
+    auto start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
+    auto end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
+    
+    // Add log entry to recent search and calculate total entries matching timestamp.
+    while (start != end) {
+        recentSearches.push_back(masterLogIndices[(*start).entryID]);
+        ++ totalSearches;
+        ++ start;
+    }
+    
+    cout << "Timestamp search: " << totalSearches << " entries found\n";
 }
 
 // Searches all log entries with the matching category. (c)
@@ -173,29 +232,25 @@ void archive::keywordSearch() {
 
 // Append log entry by given position(entryID) to the end of excerpt list. (a)
 void archive::appendLogEntry() {
-    // Sorts a helper data structure the first time for constant access later on.
-    if (!isAppendSort) {
-        appendLogEntryHelper();
-    }
-    
     // Read in rest of input to retrieve position for master log.
     uint32_t position;
     cin >> position;
     
-    // Checks if input is valid.
+    // Checks if position is valid.
     if (position < 0 || position >= masterLog.size()) {
-        cerr << "Invalid log entry position.\n";
+        cerr << "Invalid log entry position. Please enter valid position.\n";
         return;
     }
     
     // Append log at end of excerpt list.
-    excerptList.push_back(masterLog[masterLogIndices[position]]);
+    excerptList.push_back(masterLogIndices[position]);
     
     cout << "log entry " << position << " appended\n";
     
 }
 
-void archive::appendLogEntryHelper() {
+// Sorts a helper data structure the first time for constant access later on.
+void archive::storeOrigMasterLog() {
     masterLogIndices.resize(masterLog.size()); // Reserve size
     
     // Sets the entryID index appropriately.
@@ -245,16 +300,20 @@ void archive::clearExcerptList() {
 //                              OUTPUT COMMANDS
 // ----------------------------------------------------------------------------
 
-// Print most recent serch results by timestamp -> category -> entryID. (g)
+// Print most recent search results by timestamp -> category -> entryID. (g)
 void archive::printRecentSearch() {
-    
+    // (EntryID)|(Timestamp)|(Category)|(Message)|Newline
+    for (uint32_t i = 0; i < recentSearches.size(); ++ i) {
+        cout << i << "|" << masterLog[recentSearches[i]].entryID << "|" << masterLog[recentSearches[i]].timestamp
+        << "|" << masterLog[recentSearches[i]].category << "|" << masterLog[recentSearches[i]].message << "\n";
+    }
 }
 
 // Print all excerpt list entries. (p)
 void archive::printExcerptlist() {
     // (Position)|(EntryID)|(Timestamp)|(Category)|(Message)|Newline
     for (uint32_t i = 0; i < excerptList.size(); ++ i) {
-        cout << i << "|" << excerptList[i].entryID << "|" << excerptList[i].timestamp
-        << "|" << excerptList[i].category << "|" << excerptList[i].message << "\n";
+        cout << i << "|" << masterLog[excerptList[i]].entryID << "|" << masterLog[excerptList[i]].timestamp
+        << "|" << masterLog[excerptList[i]].category << "|" << masterLog[excerptList[i]].message << "\n";
     }
 }

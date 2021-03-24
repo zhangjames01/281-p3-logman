@@ -53,6 +53,10 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
+            argument = "sample-log.txt"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "spec-test-log.txt"
             isEnabled = "YES">
          </CommandLineArgument>

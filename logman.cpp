@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
     else {
         archive Archive; // Don't need initializer
         Archive.readMasterLog(commandArg);
+        Archive.storeOrigMasterLog();
         Archive.getUserCommands();
         cout << "oh";
     }

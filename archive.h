@@ -71,7 +71,7 @@ public:
     //                              OUTPUT COMMANDS
     // ----------------------------------------------------------------------------
     
-    // Print most recent serch results by timestamp -> category -> entryID. (g)
+    // Print most recent search results by timestamp -> category -> entryID. (g)
     void printRecentSearch();
     
     // Print all excerpt list entries. (p)
@@ -81,8 +81,8 @@ public:
     
     
     
-    //HELPER FUNCTION
-    void appendLogEntryHelper();
+    // Sorts a helper data structure the first time for constant access later on.
+    void storeOrigMasterLog();
     
     
     
@@ -112,13 +112,25 @@ private:
         }
     };
     
+    // Comparator for finding lower and upper bounds for timestamps search.
+    struct timestampComparator {
+        bool operator() (const int64_t timestamp, const entry& e1) const {                     // USED BY UPPER_BOUND
+            return timestamp < e1.timestampNum;
+        }
+        bool operator() (const entry& e1, const int64_t timestamp) const {                    // USED BY LOWER_BOUND
+            return e1.timestampNum < timestamp;
+        }
+    };
+    
     
     vector<entry> masterLog; // Master list of all log entries read in.
     
     // Helper data vector that helps with quick retrieval of log entries by original position.
     vector<uint32_t> masterLogIndices;
     
-    deque<entry> excerptList; // Excerpt list of log entries.
+    deque<uint32_t> excerptList; // Excerpt list of log entries using indices.
+    
+    vector<uint32_t> recentSearches; // Storage of entries from recent searches.
 
     bool isAppendSort = 0;
 };
