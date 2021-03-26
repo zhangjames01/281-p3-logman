@@ -42,6 +42,14 @@ void archive::readMasterLog(string fileName) {
         // Pushes each new category and stores the respective entry ID for that log.
         categoryLog[temp.category].push_back(temp.entryID);
         
+        
+        // Makes message lowercase so messages are case insensitive when being worked with.
+        transform(temp.message.begin(), temp.message.end(), temp.message.begin(), ::tolower);
+        
+        // Pushes each keyword in the entry and stores the respective entry ID for that log.
+        populateKeywordLog(temp.category, temp.entryID);
+        populateKeywordLog(temp.message, temp.entryID);
+        
         // Increment number of entries just read in.
         ++ numEntries;
     }
@@ -246,7 +254,55 @@ void archive::categorySearch() {
 
 // Searches all log entries that contain every keyword given. (k)
 void archive::keywordSearch() {
-
+    vector<string> keywordsGiven;
+    // Read in rest of input to retrieve matching keywords.
+    string keywords;
+    getline(cin, keywords);
+    // Remove extra space read in using getline.
+    keywords.erase(keywords.begin(), keywords.begin() + 1);
+    // Makes keywords lowercase so keywords are case insensitive when being worked with.
+    transform(keywords.begin(), keywords.end(), keywords.begin(), ::tolower);
+    
+    // Algorithm to seperate input into seperate keywords.
+    int startofWord = 0;
+    int endofWord = 0;
+    // If a char of the string is not alphanumerical, add the current read word in.
+    for (auto ptr = keywords.c_str(); *ptr != '\0'; ++ ptr) {
+        if (!isalnum(*ptr)) {
+            // Subtract endofWord and startofWord to get the length.
+            if (startofWord != endofWord) {
+                keywordsGiven.push_back(keywords.substr(startofWord, endofWord - startofWord));
+            }
+            startofWord = endofWord + 1;
+        }
+        ++ endofWord;
+    }
+    // If the last word of the string has not been read in, do that here.
+    if (startofWord != keywords.size()) {
+        keywordsGiven.push_back(keywords.substr(startofWord, endofWord - startofWord));
+    }
+    
+    vector<vector<uint32_t>> keywordsResults(keywordsGiven.size());
+    
+    for (uint32_t i = 0; i < keywordsGiven.size(); ++ i) {
+        size_t totalSearches = 0;
+        // Search up log entries if there is a matching category.
+        if (keywordLog.find(keywordsGiven[i]) != keywordLog.end()) {
+            for (uint32_t j = 0; j < keywordLog[keywordsGiven[i]].size(); ++ j) {
+                // Add log entries by the entry ID.
+                keywordsResults[i].push_back(masterLogIndices[keywordLog[keywordsGiven[i]][j]]);
+            }
+            totalSearches = keywordLog[keywordsGiven[i]].size();
+        }
+    }
+    
+    vector<uint32_t> newSet(4);
+    vector<uint32_t>::iterator it;
+    // check if only one keyword
+    it = set_intersection(keywordsResults[1].begin(), keywordsResults[1].end(), keywordsResults[0].begin(), keywordsResults[0].end(), newSet.begin());
+    for (uint32_t i = 2; i < keywordsGiven.size() - 1; ++ i) {
+        it = set_intersection(newSet.begin(), newSet.end(), keywordsResults[i].begin(), keywordsResults[i].end(), newSet.begin());
+    }
 }
 
 // ----------------------------------------------------------------------------

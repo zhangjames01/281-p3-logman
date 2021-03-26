@@ -138,7 +138,28 @@ private:
     // i.e. populate these vectors as we read in log entries, and not after sorting!!! This will have to depend on entryID
     unordered_map<string, vector<uint32_t>> categoryLog;
     
-    unordered_map<string, vector<uint32_t>> messageLog;
+    unordered_map<string, vector<uint32_t>> keywordLog;
 
     bool isAppendSort = 0;
+    
+    void populateKeywordLog(const string phrase, uint32_t entryID) {
+        int startofWord = 0;
+        int endofWord = 0;
+        
+        // If a char of the string is not alphanumerical, add the current read word in.
+        for (auto ptr = phrase.c_str(); *ptr != '\0'; ++ ptr) {
+            if (!isalnum(*ptr)) {
+                if (startofWord != endofWord) {
+                    // Subtract endofWord and startofWord to get the length.
+                    keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
+                }
+                startofWord = endofWord + 1;
+            }
+            ++ endofWord;
+        }
+        // If the last word of the string has not been read in, do that here.
+        if (startofWord != phrase.size()) {
+            keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
+        }
+    }
 };
