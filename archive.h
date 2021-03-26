@@ -140,7 +140,7 @@ private:
     
     unordered_map<string, vector<uint32_t>> keywordLog;
 
-    bool isAppendSort = 0;
+    bool previouslySearched = 0;
     
     void populateKeywordLog(const string phrase, uint32_t entryID) {
         int startofWord = 0;

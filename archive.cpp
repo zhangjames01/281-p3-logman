@@ -113,6 +113,9 @@ void archive::processCommands(char command) {
             break;
             
         case 'r': // Append search results
+            if (!previouslySearched) {
+                cerr << "No previous search has been done. Please try again.\n";
+            }
             appendSearchResults();
             break;
             
@@ -139,6 +142,9 @@ void archive::processCommands(char command) {
     //                              OUTPUT COMMANDS
     // ----------------------------------------------------------------------------
         case 'g': // Print most recent search results
+            if (!previouslySearched) {
+                cerr << "No previous search has been done. Please try again.\n";
+            }
             printRecentSearch();
             break;
             
@@ -197,6 +203,11 @@ void archive::timestampsSearch() {
     }
     
     cout << "Timestamps search: " << totalSearches << " entries found\n";
+    
+    // Clear search.
+    recentSearches.clear();
+    // Switch to previously searched.
+    previouslySearched = 1;
 }
 
 // Searches all log entries with timestamps matching the given timestamp. (m)
@@ -227,6 +238,11 @@ void archive::matchingSearch() {
     }
     
     cout << "Timestamp search: " << totalSearches << " entries found\n";
+    
+    // Clear search.
+    recentSearches.clear();
+    // Switch to previously searched.
+    previouslySearched = 1;
 }
 
 // Searches all log entries with the matching category. (c)
@@ -250,59 +266,87 @@ void archive::categorySearch() {
     }
     
     cout << "Category search: " << totalSearches << " entries found\n";
+    
+    // Clear search.
+    recentSearches.clear();
+    // Switch to previously searched.
+    previouslySearched = 1;
 }
 
 // Searches all log entries that contain every keyword given. (k)
 void archive::keywordSearch() {
-    vector<string> keywordsGiven;
-    // Read in rest of input to retrieve matching keywords.
-    string keywords;
-    getline(cin, keywords);
+    string keywordsGiven;
+    getline(cin, keywordsGiven);
     // Remove extra space read in using getline.
-    keywords.erase(keywords.begin(), keywords.begin() + 1);
+    keywordsGiven.erase(keywordsGiven.begin(), keywordsGiven.begin() + 1);
     // Makes keywords lowercase so keywords are case insensitive when being worked with.
-    transform(keywords.begin(), keywords.end(), keywords.begin(), ::tolower);
+    transform(keywordsGiven.begin(), keywordsGiven.end(), keywordsGiven.begin(), ::tolower);
     
-    // Algorithm to seperate input into seperate keywords.
-    int startofWord = 0;
-    int endofWord = 0;
-    // If a char of the string is not alphanumerical, add the current read word in.
-    for (auto ptr = keywords.c_str(); *ptr != '\0'; ++ ptr) {
-        if (!isalnum(*ptr)) {
-            // Subtract endofWord and startofWord to get the length.
-            if (startofWord != endofWord) {
-                keywordsGiven.push_back(keywords.substr(startofWord, endofWord - startofWord));
-            }
-            startofWord = endofWord + 1;
+    string keyword = "";
+    vector<uint32_t> searchResult;
+    size_t totalSearches = 0;
+    
+    for (auto ptr = keywordsGiven.c_str(); *ptr != '\0'; ++ ptr) {
+        // Add letter to a word if it is alphanumerical.
+        if (isalnum(*ptr)) {
+            keyword.push_back(*ptr);
         }
-        ++ endofWord;
-    }
-    // If the last word of the string has not been read in, do that here.
-    if (startofWord != keywords.size()) {
-        keywordsGiven.push_back(keywords.substr(startofWord, endofWord - startofWord));
-    }
-    
-    vector<vector<uint32_t>> keywordsResults(keywordsGiven.size());
-    
-    for (uint32_t i = 0; i < keywordsGiven.size(); ++ i) {
-        size_t totalSearches = 0;
-        // Search up log entries if there is a matching category.
-        if (keywordLog.find(keywordsGiven[i]) != keywordLog.end()) {
-            for (uint32_t j = 0; j < keywordLog[keywordsGiven[i]].size(); ++ j) {
-                // Add log entries by the entry ID.
-                keywordsResults[i].push_back(masterLogIndices[keywordLog[keywordsGiven[i]][j]]);
+        // Accounts if the leading characer is not alphanumerical.
+        if (keyword == "") {
+        }
+        // If the last letter is alphanumerical, make sure to add the word.
+        if (*(ptr + 1) == '\0') {
+            // If keyword is not in master log, there will be no search entries.
+            if (keywordLog.find(keyword) != keywordLog.end()) {
+                //SET total search to 0
+                cout << "Keyword search: " << 0 << " entries found\n";
+                // Clear search.
+                recentSearches.clear();
+                return;
             }
-            totalSearches = keywordLog[keywordsGiven[i]].size();
+            // Find the first vector of entries for set intersection.
+            if (searchResult.empty()) {
+                searchResult = keywordLog[keyword];
+            }
+            // Search up log entries if there is a matching keyword.
+            // Add log entried by entry ID to the resulting vector.
+            set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keyword].begin(), keywordLog[keyword].end(), searchResult.begin());
+            
+            keyword = "";
+        }
+        else {
+            // If keyword is not in master log, there will be no search entries.
+            if (keywordLog.find(keyword) != keywordLog.end()) {
+                //SET total search to 0
+                cout << "Keyword search: " << 0 << " entries found\n";
+                // Clear search.
+                recentSearches.clear();
+                return;
+            }
+            // Find the first vector of entries for set intersection.
+            if (searchResult.empty()) {
+                searchResult = keywordLog[keyword];
+            }
+            // Search up log entries if there is a matching keyword.
+            // Add log entried by entry ID to the resulting vector.
+            set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keyword].begin(), keywordLog[keyword].end(), searchResult.begin());
+            
+            keyword = "";
         }
     }
     
-    vector<uint32_t> newSet(4);
-    vector<uint32_t>::iterator it;
-    // check if only one keyword
-    it = set_intersection(keywordsResults[1].begin(), keywordsResults[1].end(), keywordsResults[0].begin(), keywordsResults[0].end(), newSet.begin());
-    for (uint32_t i = 2; i < keywordsGiven.size() - 1; ++ i) {
-        it = set_intersection(newSet.begin(), newSet.end(), keywordsResults[i].begin(), keywordsResults[i].end(), newSet.begin());
+    totalSearches = searchResult.size();
+    for (uint32_t i = 0; i < searchResult.size(); ++ i) {
+        // Add log entries by the entry ID.
+        recentSearches.push_back(masterLogIndices[searchResult[i]]);
     }
+    
+    cout << "Keyword search: " << totalSearches << " entries found\n";
+    
+    // Clear search.
+    recentSearches.clear();
+    // Switch to previously searched.
+    previouslySearched = 1;
 }
 
 // ----------------------------------------------------------------------------
@@ -340,9 +384,6 @@ void archive::storeOrigMasterLog() {
             }
         }
     }
-    
-    // Switches so this action is only done the first time 'a' is received.
-    isAppendSort = 1;
 }
 
 // Append all log entries returned by most recent previous search. (r)

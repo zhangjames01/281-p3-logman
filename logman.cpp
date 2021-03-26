@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
         Archive.readMasterLog(commandArg);
         Archive.storeOrigMasterLog();
         Archive.getUserCommands();
-        cout << "oh";
     }
     
     return 0;

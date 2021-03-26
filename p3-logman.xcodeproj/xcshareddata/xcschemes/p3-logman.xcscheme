@@ -60,6 +60,14 @@
             argument = "spec-test-log.txt"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "&lt;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "spec-test-cmds.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
