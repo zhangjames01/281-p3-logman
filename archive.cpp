@@ -173,6 +173,11 @@ void archive::processCommands(char command) {
 
 // Searches all log entries with timestamps within a specified range. (t)
 void archive::timestampsSearch() {
+    if (previouslySearched) {
+        // Clear search.
+        recentSearches.clear();
+    }
+    
     uint32_t totalSearches = 0;
     // Read in rest of input to retrieve timestamp boundaries.
     string timestamp1, timestamp2;
@@ -184,6 +189,7 @@ void archive::timestampsSearch() {
     // Checks if timestamp is valid.
     if (timestamp1.size() != 14 || timestamp2.size() != 14) {
         cerr << "Invalid timestamp size. Please enter proper timestamp.\n";
+        previouslySearched = 0;
         return;
     }
     
@@ -212,6 +218,10 @@ void archive::timestampsSearch() {
 
 // Searches all log entries with timestamps matching the given timestamp. (m)
 void archive::matchingSearch() {
+    if (previouslySearched) {
+        // Clear search.
+        recentSearches.clear();
+    }
     uint32_t totalSearches = 0;
     // Read in rest of input to retrieve matching timestamp.
     string timestamp;
@@ -220,6 +230,7 @@ void archive::matchingSearch() {
     // Checks if timestamp is valid.
     if (timestamp.size() != 14) {
         cerr << "Invalid timestamp size. Please enter proper timestamp.\n";
+        previouslySearched = 0;
         return;
     }
     
@@ -239,14 +250,16 @@ void archive::matchingSearch() {
     
     cout << "Timestamp search: " << totalSearches << " entries found\n";
     
-    // Clear search.
-    recentSearches.clear();
-    // Switch to previously searched.
     previouslySearched = 1;
 }
 
 // Searches all log entries with the matching category. (c)
 void archive::categorySearch() {
+    if (previouslySearched) {
+        // Clear search.
+        recentSearches.clear();
+    }
+    
     size_t totalSearches = 0;
     // Read in rest of input to retrieve matching category.
     string category;
@@ -267,14 +280,17 @@ void archive::categorySearch() {
     
     cout << "Category search: " << totalSearches << " entries found\n";
     
-    // Clear search.
-    recentSearches.clear();
     // Switch to previously searched.
     previouslySearched = 1;
 }
 
 // Searches all log entries that contain every keyword given. (k)
 void archive::keywordSearch() {
+    if (previouslySearched) {
+        // Clear search.
+        recentSearches.clear();
+    }
+    
     string keywordsGiven;
     getline(cin, keywordsGiven);
     // Remove extra space read in using getline.
@@ -286,53 +302,50 @@ void archive::keywordSearch() {
     vector<uint32_t> searchResult;
     size_t totalSearches = 0;
     
+    uint32_t startofWord = 0;
+    uint32_t endofWord = 0;
+    bool firstSet = 1;
+    
+    // If a char of the string is not alphanumerical, add the current read word in.
     for (auto ptr = keywordsGiven.c_str(); *ptr != '\0'; ++ ptr) {
-        // Add letter to a word if it is alphanumerical.
-        if (isalnum(*ptr)) {
-            keyword.push_back(*ptr);
-        }
-        // Accounts if the leading characer is not alphanumerical.
-        if (keyword == "") {
-        }
-        // If the last letter is alphanumerical, make sure to add the word.
-        if (*(ptr + 1) == '\0') {
-            // If keyword is not in master log, there will be no search entries.
-            if (keywordLog.find(keyword) != keywordLog.end()) {
-                //SET total search to 0
-                cout << "Keyword search: " << 0 << " entries found\n";
-                // Clear search.
-                recentSearches.clear();
-                return;
+        if (!isalnum(*ptr)) {
+            if (startofWord != endofWord) {
+                // Subtract endofWord and startofWord to get the length.
+                // If keyword is not in master log, there will be no search entries.
+                if (keywordLog.find(keywordsGiven.substr(startofWord, endofWord - startofWord)) == keywordLog.end()) {
+                    //SET total search to 0
+                    cout << "Keyword search: " << 0 << " entries found\n";
+                    return;
+                }
+                // Find the first vector of entries for set intersection.
+                if (firstSet == 1) {
+                    searchResult = keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)];
+                    firstSet = 0;
+                }
+                // Search up log entries if there is a matching keyword.
+                // Add log entried by entry ID to the resulting vector.
+                set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
             }
-            // Find the first vector of entries for set intersection.
-            if (searchResult.empty()) {
-                searchResult = keywordLog[keyword];
-            }
-            // Search up log entries if there is a matching keyword.
-            // Add log entried by entry ID to the resulting vector.
-            set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keyword].begin(), keywordLog[keyword].end(), searchResult.begin());
-            
-            keyword = "";
+            startofWord = endofWord + 1;
         }
-        else {
-            // If keyword is not in master log, there will be no search entries.
-            if (keywordLog.find(keyword) != keywordLog.end()) {
-                //SET total search to 0
-                cout << "Keyword search: " << 0 << " entries found\n";
-                // Clear search.
-                recentSearches.clear();
-                return;
-            }
-            // Find the first vector of entries for set intersection.
-            if (searchResult.empty()) {
-                searchResult = keywordLog[keyword];
-            }
-            // Search up log entries if there is a matching keyword.
-            // Add log entried by entry ID to the resulting vector.
-            set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keyword].begin(), keywordLog[keyword].end(), searchResult.begin());
-            
-            keyword = "";
+        ++ endofWord;
+    }
+    // If the last word of the string has not been read in, do that here.
+    if (startofWord != keywordsGiven.size()) {
+        // If keyword is not in master log, there will be no search entries.
+        if (keywordLog.find(keywordsGiven.substr(startofWord, endofWord - startofWord)) == keywordLog.end()) {
+            //SET total search to 0
+            cout << "Keyword search: " << 0 << " entries found\n";
+            return;
         }
+        // Find the first vector of entries for set intersection.
+        if (firstSet == 1) {
+            searchResult = keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)];
+            firstSet = 0;
+        }
+        // Search up log entries if there is a matching keyword.
+        // Add log entried by entry ID to the resulting vector.
+        set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
     }
     
     totalSearches = searchResult.size();
@@ -340,11 +353,9 @@ void archive::keywordSearch() {
         // Add log entries by the entry ID.
         recentSearches.push_back(masterLogIndices[searchResult[i]]);
     }
-    
+    sort(recentSearches.begin(), recentSearches.end());
     cout << "Keyword search: " << totalSearches << " entries found\n";
     
-    // Clear search.
-    recentSearches.clear();
     // Switch to previously searched.
     previouslySearched = 1;
 }
@@ -463,7 +474,25 @@ void archive::moveToEnd() {
 
 // Sort excerpt list by timestamp -> category -> entryID. (s)
 void archive::sortExcerptList() {
+    size_t lastElement = excerptList.size() - 1;
+    cout << "excerpt list sorted\n";
+    cout << "previous ordering:\n";
+    
+    cout << 0 << "|" << masterLog[excerptList[0]].entryID << "|" << masterLog[excerptList[0]].timestamp
+    << "|" << masterLog[excerptList[0]].category << "|" << masterLog[excerptList[0]].message << "\n" << "...\n";
+    
+    cout << lastElement << "|" << masterLog[excerptList[lastElement]].entryID << "|" << masterLog[excerptList[lastElement]].timestamp
+    << "|" << masterLog[excerptList[lastElement]].category << "|" << masterLog[excerptList[lastElement]].message << "\n";
+    
     sort(excerptList.begin(), excerptList.end());
+    
+    cout << "new ordering:\n";
+    
+    cout << 0 << "|" << masterLog[excerptList[0]].entryID << "|" << masterLog[excerptList[0]].timestamp
+    << "|" << masterLog[excerptList[0]].category << "|" << masterLog[excerptList[0]].message << "\n" << "...\n";
+    
+    cout << lastElement << "|" << masterLog[excerptList[lastElement]].entryID << "|" << masterLog[excerptList[lastElement]].timestamp
+    << "|" << masterLog[excerptList[lastElement]].category << "|" << masterLog[excerptList[lastElement]].message << "\n";
 }
 
 // Removes all entries from the excerpt list. (l)

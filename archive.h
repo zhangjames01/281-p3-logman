@@ -143,8 +143,8 @@ private:
     bool previouslySearched = 0;
     
     void populateKeywordLog(const string phrase, uint32_t entryID) {
-        int startofWord = 0;
-        int endofWord = 0;
+        uint32_t startofWord = 0;
+        uint32_t endofWord = 0;
         
         // If a char of the string is not alphanumerical, add the current read word in.
         for (auto ptr = phrase.c_str(); *ptr != '\0'; ++ ptr) {
