@@ -23,9 +23,8 @@ int main(int argc, char** argv) {
         exit(0);
     }
     else {
-        archive Archive; // Don't need initializer
+        archive Archive;
         Archive.readMasterLog(commandArg);
-        Archive.storeOrigMasterLog();
         Archive.getUserCommands();
     }
     

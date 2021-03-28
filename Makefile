@@ -279,7 +279,8 @@ help:
 # myclass.o: myclass.cpp myclass.h $(HEADERS)
 # project5.o: project5.cpp myclass.o $(HEADERS)
 #
-# SOME EXAMPLES
+  archive.o: archive.cpp archive.h
+  logman: logman.cpp archive.o
 #
 #test_thing: test_thing.cpp class.o functions.o
 #class.o: class.cpp class.h

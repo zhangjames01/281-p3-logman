@@ -1,0 +1,13 @@
+c thread
+g
+c yoshi
+g
+c YOSHI
+g
+c UI-pane1
+g
+c ui pane1
+g
+c connection'to,lost client
+g
+q

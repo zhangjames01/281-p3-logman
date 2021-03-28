@@ -1,4 +1,4 @@
-// B99292359FFD910ED13A7E6C7F9705B8742F0D79
+// 01BD41C3BF016AD7E8B6F837DF18926EC3E83350
 
 /*
 
@@ -9,18 +9,17 @@
 
 #include "archive.h"
 
+ // ----------------------------------------------------------------------------
+ //                             DRIVER FUNCTIONS
+ // ----------------------------------------------------------------------------
+
 // Reads a series of log entries from the master log file.
-void archive::readMasterLog(string fileName) {
+void archive::readMasterLog(const string& fileName) {
     ifstream fin(fileName);
     entry temp;
     string timestampNum;
     uint32_t numEntries = 0;
     
-    // Checks if file did not open. REMOVE LATER when submitting.
-    if (!fin.is_open()) {
-        cout << "File did not open.\n";
-        exit(1);
-    }
     // Reads in timestamp, category, and message from one log entry.
     while (getline(fin, temp.timestamp, '|')) {
         getline(fin, temp.category, '|');
@@ -36,19 +35,6 @@ void archive::readMasterLog(string fileName) {
         
         // Pushes that log entry into the master list vector.
         masterLog.push_back(temp);
-
-        // Makes category lowercase so categories are case insensitive when being worked with.
-        transform(temp.category.begin(), temp.category.end(), temp.category.begin(), ::tolower);
-        // Pushes each new category and stores the respective entry ID for that log.
-        categoryLog[temp.category].push_back(temp.entryID);
-        
-        
-        // Makes message lowercase so messages are case insensitive when being worked with.
-        transform(temp.message.begin(), temp.message.end(), temp.message.begin(), ::tolower);
-        
-        // Pushes each keyword in the entry and stores the respective entry ID for that log.
-        populateKeywordLog(temp.category, temp.entryID);
-        populateKeywordLog(temp.message, temp.entryID);
         
         // Increment number of entries just read in.
         ++ numEntries;
@@ -60,6 +46,28 @@ void archive::readMasterLog(string fileName) {
     // Sort Master log File.
     logComparator logSort;
     sort(masterLog.begin(), masterLog.end(), logSort);
+    
+    // Reserve size of helper container.
+    masterLogIndices.resize(masterLog.size());
+    
+    for (uint32_t i = 0; i < masterLog.size(); ++ i) {
+        string tempCategory = masterLog[i].category;
+        string tempMessage = masterLog[i].message;
+        // Makes category lowercase so categories are case insensitive when being worked with.
+        transform(tempCategory.begin(), tempCategory.end(), tempCategory.begin(), ::tolower);
+        // Makes message lowercase so messages are case insensitive when being worked with.
+        transform(tempMessage.begin(), tempMessage.end(), tempMessage.begin(), ::tolower);
+        
+        // Pushes each new category and stores the respective entry ID for that log.
+        categoryLog[tempCategory].push_back(i);
+        
+        // Pushes each keyword in the entry and stores the respective entry ID for that log.
+        populateKeywordLog(tempCategory, i);
+        populateKeywordLog(tempMessage, i);
+        
+        // Sorts a helper data structure the first time for constant access later on.
+        masterLogIndices[masterLog[i].entryID] = i;
+    }
     
     // Print total number of entries read.
     cout << numEntries << " entries read\n";
@@ -115,6 +123,7 @@ void archive::processCommands(char command) {
         case 'r': // Append search results
             if (!previouslySearched) {
                 cerr << "No previous search has been done. Please try again.\n";
+                break;
             }
             appendSearchResults();
             break;
@@ -144,6 +153,7 @@ void archive::processCommands(char command) {
         case 'g': // Print most recent search results
             if (!previouslySearched) {
                 cerr << "No previous search has been done. Please try again.\n";
+                break;
             }
             printRecentSearch();
             break;
@@ -210,8 +220,6 @@ void archive::timestampsSearch() {
     
     cout << "Timestamps search: " << totalSearches << " entries found\n";
     
-    // Clear search.
-    recentSearches.clear();
     // Switch to previously searched.
     previouslySearched = 1;
 }
@@ -259,7 +267,6 @@ void archive::categorySearch() {
         // Clear search.
         recentSearches.clear();
     }
-    
     size_t totalSearches = 0;
     // Read in rest of input to retrieve matching category.
     string category;
@@ -271,10 +278,7 @@ void archive::categorySearch() {
     
     // Search up log entries if there is a matching category.
     if (categoryLog.find(category) != categoryLog.end()) {
-        for (uint32_t i = 0; i < categoryLog[category].size(); ++ i) {
-            // Add log entries by the entry ID.
-            recentSearches.push_back(masterLogIndices[categoryLog[category][i]]);
-        }
+        recentSearches = categoryLog[category];
         totalSearches = categoryLog[category].size();
     }
     
@@ -300,6 +304,7 @@ void archive::keywordSearch() {
     
     string keyword = "";
     vector<uint32_t> searchResult;
+    vector<uint32_t>::iterator it;
     size_t totalSearches = 0;
     
     uint32_t startofWord = 0;
@@ -322,9 +327,12 @@ void archive::keywordSearch() {
                     searchResult = keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)];
                     firstSet = 0;
                 }
-                // Search up log entries if there is a matching keyword.
-                // Add log entried by entry ID to the resulting vector.
-                set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
+                else {
+                    // Search up log entries if there is a matching keyword.
+                    // Add log entried by entry ID to the resulting vector.
+                    it = set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
+                    searchResult.resize(static_cast<size_t>(it - searchResult.begin()));
+                }
             }
             startofWord = endofWord + 1;
         }
@@ -343,17 +351,19 @@ void archive::keywordSearch() {
             searchResult = keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)];
             firstSet = 0;
         }
+        else {
         // Search up log entries if there is a matching keyword.
         // Add log entried by entry ID to the resulting vector.
-        set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
+        it = set_intersection(searchResult.begin(), searchResult.end(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].begin(), keywordLog[keywordsGiven.substr(startofWord, endofWord - startofWord)].end(), searchResult.begin());
+            searchResult.resize(static_cast<size_t>(it - searchResult.begin()));
+        }
     }
     
     totalSearches = searchResult.size();
     for (uint32_t i = 0; i < searchResult.size(); ++ i) {
         // Add log entries by the entry ID.
-        recentSearches.push_back(masterLogIndices[searchResult[i]]);
+        recentSearches.push_back(searchResult[i]);
     }
-    sort(recentSearches.begin(), recentSearches.end());
     cout << "Keyword search: " << totalSearches << " entries found\n";
     
     // Switch to previously searched.
@@ -367,34 +377,20 @@ void archive::keywordSearch() {
 // Append log entry by given position(entryID) to the end of excerpt list. (a)
 void archive::appendLogEntry() {
     // Read in rest of input to retrieve position for master log.
-    uint32_t position;
+    int position;
     cin >> position;
     
     // Checks if position is valid.
-    if (position < 0 || position >= masterLog.size()) {
+    if (position < 0 || static_cast<size_t>(position) >= masterLog.size()) {
         cerr << "Invalid log entry position. Please enter valid position.\n";
         return;
     }
     
     // Append log at end of excerpt list.
-    excerptList.push_back(masterLogIndices[position]);
+    excerptList.push_back(masterLogIndices[static_cast<size_t>(position)]);
     
     cout << "log entry " << position << " appended\n";
     
-}
-
-// Sorts a helper data structure the first time for constant access later on.
-void archive::storeOrigMasterLog() {
-    masterLogIndices.resize(masterLog.size()); // Reserve size
-    
-    // Sets the entryID index appropriately.
-    for (uint32_t i = 0; i < masterLogIndices.size(); ++ i) {
-        for (uint32_t j = 0; j < masterLog.size(); ++ j) {
-            if (i == masterLog[j].entryID) {
-                masterLogIndices[i] = j;
-            }
-        }
-    }
 }
 
 // Append all log entries returned by most recent previous search. (r)
@@ -402,9 +398,7 @@ void archive::appendSearchResults() {
     size_t entriesAppended = 0;
     
     // Add all log entries from recent search to excerpt list. Should be sorted already.
-    for (uint32_t i = 0; i < recentSearches.size(); ++ i) {
-        excerptList.push_back(recentSearches[i]);
-    }
+    excerptList.insert(excerptList.end(), recentSearches.begin(), recentSearches.end());
     entriesAppended = recentSearches.size();
     
     cout << entriesAppended << " log entries appended\n";
@@ -413,11 +407,11 @@ void archive::appendSearchResults() {
 // Delete log entry by given position. (d)
 void archive::deleteLogEntry() {
     // Read in rest of input to retrieve position for excerpt list.
-    uint32_t position;
+    int position;
     cin >> position;
     
     // Checks if position is valid.
-    if (position < 0 || position >= excerptList.size()) {
+    if (position < 0 || static_cast<size_t>(position) >= excerptList.size()) {
         cerr << "Invalid log entry position. Please enter valid position.\n";
         return;
     }
@@ -431,17 +425,17 @@ void archive::deleteLogEntry() {
 // Move log entry at given position to the beginning of excerpt list. (b)
 void archive::moveToBeginning() {
     // Read in rest of input to retrieve position excerpt list.
-    uint32_t position;
+    int position;
     cin >> position;
     
     // Checks if position is valid.
-    if (position < 0 || position >= excerptList.size()) {
+    if (position < 0 || static_cast<size_t>(position) >= excerptList.size()) {
         cerr << "Invalid log entry position. Please enter valid position.\n";
         return;
     }
     
     // Store log entry in a temporary.
-    uint32_t entryMoved = excerptList[position];
+    uint32_t entryMoved = excerptList[static_cast<size_t>(position)];
     // Delete log entry at given position.
     excerptList.erase(excerptList.begin() + position);
     // Push the log entry to the beginning of the excerpt list.
@@ -453,17 +447,17 @@ void archive::moveToBeginning() {
 // Move log entry at given position to the end of excerpt list. (e)
 void archive::moveToEnd() {
     // Read in rest of input to retrieve position excerpt list.
-    uint32_t position;
+    int position;
     cin >> position;
     
     // Checks if position is valid.
-    if (position < 0 || position >= excerptList.size()) {
+    if (position < 0 || static_cast<size_t>(position) >= excerptList.size()) {
         cerr << "Invalid log entry position. Please enter valid position.\n";
         return;
     }
     
     // Store log entry in a temporary.
-    uint32_t entryMoved = excerptList[position];
+    uint32_t entryMoved = excerptList[static_cast<size_t>(position)];
     // Delete log entry at given position.
     excerptList.erase(excerptList.begin() + position);
     // Push the log entry to the end of the excerpt list.
@@ -474,8 +468,17 @@ void archive::moveToEnd() {
 
 // Sort excerpt list by timestamp -> category -> entryID. (s)
 void archive::sortExcerptList() {
-    size_t lastElement = excerptList.size() - 1;
     cout << "excerpt list sorted\n";
+    
+    // Print if excerpt list was previously empty.
+    if (excerptList.empty()) {
+        cout << "(previously empty)\n";
+        return;
+    }
+    
+    size_t lastElement = excerptList.size() - 1;
+    
+    // Print previous contents, with the first and last element.
     cout << "previous ordering:\n";
     
     cout << 0 << "|" << masterLog[excerptList[0]].entryID << "|" << masterLog[excerptList[0]].timestamp
@@ -484,8 +487,10 @@ void archive::sortExcerptList() {
     cout << lastElement << "|" << masterLog[excerptList[lastElement]].entryID << "|" << masterLog[excerptList[lastElement]].timestamp
     << "|" << masterLog[excerptList[lastElement]].category << "|" << masterLog[excerptList[lastElement]].message << "\n";
     
+    // Sort excerpt list.
     sort(excerptList.begin(), excerptList.end());
     
+    // Print sorted contents, with the first and last element.
     cout << "new ordering:\n";
     
     cout << 0 << "|" << masterLog[excerptList[0]].entryID << "|" << masterLog[excerptList[0]].timestamp
@@ -497,6 +502,26 @@ void archive::sortExcerptList() {
 
 // Removes all entries from the excerpt list. (l)
 void archive::clearExcerptList() {
+    cout << "excerpt list cleared\n";
+    
+    // Print if excerpt list was already empty.
+    if (excerptList.empty()) {
+        cout << "(previously empty)\n";
+        return;
+    }
+    
+    size_t lastElement = excerptList.size() - 1;
+    
+    // Print previous contents, with the first and last element.
+    cout << "previous contents:\n";
+    
+    cout << 0 << "|" << masterLog[excerptList[0]].entryID << "|" << masterLog[excerptList[0]].timestamp
+    << "|" << masterLog[excerptList[0]].category << "|" << masterLog[excerptList[0]].message << "\n" << "...\n";
+    
+    cout << lastElement << "|" << masterLog[excerptList[lastElement]].entryID << "|" << masterLog[excerptList[lastElement]].timestamp
+    << "|" << masterLog[excerptList[lastElement]].category << "|" << masterLog[excerptList[lastElement]].message << "\n";
+    
+    
     excerptList.clear();
 }
 
@@ -508,7 +533,7 @@ void archive::clearExcerptList() {
 void archive::printRecentSearch() {
     // (EntryID)|(Timestamp)|(Category)|(Message)|Newline
     for (uint32_t i = 0; i < recentSearches.size(); ++ i) {
-        cout << i << "|" << masterLog[recentSearches[i]].entryID << "|" << masterLog[recentSearches[i]].timestamp
+        cout << masterLog[recentSearches[i]].entryID << "|" << masterLog[recentSearches[i]].timestamp
         << "|" << masterLog[recentSearches[i]].category << "|" << masterLog[recentSearches[i]].message << "\n";
     }
 }

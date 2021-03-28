@@ -1,0 +1,14 @@
+g
+k thread
+g
+k yoshi
+g
+k YOSHI
+g
+k Thread alrm
+g
+k receIved yoshi
+g
+k connection'to,lost|client
+g
+q

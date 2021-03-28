@@ -1,0 +1,19 @@
+r
+m 00:00:00:00:00
+r
+p
+m 01:23:10:03:00
+r
+p
+t 00:00:00:00:00|20:20:20:20:20
+r
+p
+c UI-pane1
+r
+p
+k connection'to,lost|client
+r
+p
+s
+p
+q

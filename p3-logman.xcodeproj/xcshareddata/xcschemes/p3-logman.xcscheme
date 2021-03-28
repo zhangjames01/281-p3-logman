@@ -54,11 +54,15 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "sample-log.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "test-0-log.txt"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "spec-test-log.txt"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "&lt;"
@@ -66,7 +70,19 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "spec-test-cmds.txt"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "sample-all-cmds.txt"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "sample-k-cmds.txt"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "sample-b-cmds.txt"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>

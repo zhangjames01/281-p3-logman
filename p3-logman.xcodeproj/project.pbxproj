@@ -24,6 +24,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D3ECACA26105BCD00A90C5F /* test-4-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-4-log.txt"; sourceTree = "<group>"; };
+		0D3ECACB26105BDA00A90C5F /* test-4-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-4-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECACC26105BE700A90C5F /* test-5-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-5-log.txt"; sourceTree = "<group>"; };
+		0D3ECACD26105BF200A90C5F /* test-5-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-5-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECACE26105BFD00A90C5F /* test-6-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-6-log.txt"; sourceTree = "<group>"; };
+		0D3ECACF26105C0800A90C5F /* test-6-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-6-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECAD02610636400A90C5F /* test-7-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-7-log.txt"; sourceTree = "<group>"; };
+		0D3ECAD12610636E00A90C5F /* test-7-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-7-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECAD22610637C00A90C5F /* test-8-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-8-log.txt"; sourceTree = "<group>"; };
+		0D3ECAD32610638800A90C5F /* test-8-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-8-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECAD42610639100A90C5F /* test-9-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-9-log.txt"; sourceTree = "<group>"; };
+		0D3ECAD52610639B00A90C5F /* test-9-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-9-cmds.txt"; sourceTree = "<group>"; };
+		0D3ECAD6261065FB00A90C5F /* test-10-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-10-log.txt"; sourceTree = "<group>"; };
+		0D3ECAD72610660700A90C5F /* test-10-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-10-cmds.txt"; sourceTree = "<group>"; };
 		0D43E2AC260813EE00EA82CB /* p3-logman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "p3-logman"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D43E2B82608140300EA82CB /* sample-q-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-q-cmds.txt"; sourceTree = "<group>"; };
 		0D43E2B92608140300EA82CB /* sample-t-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sample-t-cmds.txt"; sourceTree = "<group>"; };
@@ -52,6 +66,12 @@
 		0D43E2D4260870F800EA82CB /* xcode_redirect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = xcode_redirect.hpp; sourceTree = "<group>"; };
 		0D43E2D52608727C00EA82CB /* archive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = archive.cpp; sourceTree = "<group>"; };
 		0D43E2D62608727C00EA82CB /* archive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = archive.h; sourceTree = "<group>"; };
+		0D43E2FA260F193E00EA82CB /* test-1-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-1-log.txt"; sourceTree = "<group>"; };
+		0D43E2FC260F416A00EA82CB /* test-2-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-2-log.txt"; sourceTree = "<group>"; };
+		0D43E2FD260F418800EA82CB /* test-1-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-1-cmds.txt"; sourceTree = "<group>"; };
+		0D43E2FE260F419700EA82CB /* test-2-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-2-cmds.txt"; sourceTree = "<group>"; };
+		0D43E30426101DF500EA82CB /* test-3-cmds.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-3-cmds.txt"; sourceTree = "<group>"; };
+		0D43E30526101E0F00EA82CB /* test-3-log.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "test-3-log.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +91,7 @@
 				0D43E2D0260814AF00EA82CB /* logman.cpp */,
 				0D43E2D62608727C00EA82CB /* archive.h */,
 				0D43E2D52608727C00EA82CB /* archive.cpp */,
+				0D43E2DD260E867100EA82CB /* Test Files */,
 				0D43E2CD2608140E00EA82CB /* Txt files */,
 				0D43E2CE2608144C00EA82CB /* Makefile */,
 				0D43E2D4260870F800EA82CB /* xcode_redirect.hpp */,
@@ -91,6 +112,8 @@
 			children = (
 				0D43E2CF2608147600EA82CB /* README.txt */,
 				0D43E2CA2608140400EA82CB /* README-timing.txt */,
+				0D43E2BD2608140300EA82CB /* sample-log.txt */,
+				0D43E2BA2608140300EA82CB /* spec-test-log.txt */,
 				0D43E2BE2608140300EA82CB /* sample-all-cmds.txt */,
 				0D43E2CB2608140400EA82CB /* sample-all-out.txt */,
 				0D43E2C12608140300EA82CB /* sample-b-cmds.txt */,
@@ -103,16 +126,41 @@
 				0D43E2CC2608140400EA82CB /* sample-e-out.txt */,
 				0D43E2C32608140400EA82CB /* sample-k-cmds.txt */,
 				0D43E2C62608140400EA82CB /* sample-k-out.txt */,
-				0D43E2BD2608140300EA82CB /* sample-log.txt */,
 				0D43E2B82608140300EA82CB /* sample-q-cmds.txt */,
 				0D43E2BF2608140300EA82CB /* sample-q-out.txt */,
 				0D43E2B92608140300EA82CB /* sample-t-cmds.txt */,
 				0D43E2C02608140300EA82CB /* sample-t-out.txt */,
 				0D43E2C82608140400EA82CB /* spec-test-cmds.txt */,
-				0D43E2BA2608140300EA82CB /* spec-test-log.txt */,
 				0D43E2BB2608140300EA82CB /* spec-test-out.txt */,
 			);
 			name = "Txt files";
+			sourceTree = "<group>";
+		};
+		0D43E2DD260E867100EA82CB /* Test Files */ = {
+			isa = PBXGroup;
+			children = (
+				0D43E2FA260F193E00EA82CB /* test-1-log.txt */,
+				0D43E2FD260F418800EA82CB /* test-1-cmds.txt */,
+				0D43E2FC260F416A00EA82CB /* test-2-log.txt */,
+				0D43E2FE260F419700EA82CB /* test-2-cmds.txt */,
+				0D43E30526101E0F00EA82CB /* test-3-log.txt */,
+				0D43E30426101DF500EA82CB /* test-3-cmds.txt */,
+				0D3ECACA26105BCD00A90C5F /* test-4-log.txt */,
+				0D3ECACB26105BDA00A90C5F /* test-4-cmds.txt */,
+				0D3ECACC26105BE700A90C5F /* test-5-log.txt */,
+				0D3ECACD26105BF200A90C5F /* test-5-cmds.txt */,
+				0D3ECACE26105BFD00A90C5F /* test-6-log.txt */,
+				0D3ECACF26105C0800A90C5F /* test-6-cmds.txt */,
+				0D3ECAD02610636400A90C5F /* test-7-log.txt */,
+				0D3ECAD12610636E00A90C5F /* test-7-cmds.txt */,
+				0D3ECAD22610637C00A90C5F /* test-8-log.txt */,
+				0D3ECAD32610638800A90C5F /* test-8-cmds.txt */,
+				0D3ECAD42610639100A90C5F /* test-9-log.txt */,
+				0D3ECAD52610639B00A90C5F /* test-9-cmds.txt */,
+				0D3ECAD6261065FB00A90C5F /* test-10-log.txt */,
+				0D3ECAD72610660700A90C5F /* test-10-cmds.txt */,
+			);
+			name = "Test Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

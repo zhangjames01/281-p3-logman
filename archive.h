@@ -9,7 +9,7 @@
 #include <vector>
 #include <deque>
 #include <unordered_map>
-#include <string>
+#include <strings.h>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -18,14 +18,78 @@ using namespace std;
 
 class archive {
 public:
+    
+    // ----------------------------------------------------------------------------
+    //                             DRIVER FUNCTIONS
+    // ----------------------------------------------------------------------------
+    
     // Reads a series of log entries from the master log file.
-    void readMasterLog(string fileName);
+    void readMasterLog(const string& fileName);
     
     // Accepts commands from the user and handles them accordingly.
     void getUserCommands();
     
     // Processes incoming command and selects which action to take.
     void processCommands(char command);
+    
+    
+private:
+    // Switch to see if a previous search was completed for certain command functions.
+    bool previouslySearched = 0;
+    
+    
+    // Container for a single log entry.
+    struct entry {
+        uint32_t entryID;
+        int64_t timestampNum;
+        string timestamp;
+        string category;
+        string message;
+    };
+    
+    // Comparator for sorting Master Log List. Sort by timestamp -> category -> entryID.
+    struct logComparator {
+        bool operator()(const entry& e1, const entry& e2) const {
+            // If timestamp is a tie.
+            if (e1.timestampNum == e2.timestampNum) {
+                // If category is a tie.
+                if (strcasecmp(e1.category.c_str(), e2.category.c_str()) == 0) {
+                    return e1.entryID < e2.entryID;
+                }
+                else {
+                    return (strcasecmp(e1.category.c_str(), e2.category.c_str()) < 0);
+                }
+            }
+            else {
+                return e1.timestampNum < e2.timestampNum;
+            }
+        }
+    };
+    
+    // Comparator for finding lower and upper bounds for timestamps search.
+    struct timestampComparator {
+        bool operator() (const int64_t timestamp, const entry& e1) const { // Used by upper_bound
+            return timestamp < e1.timestampNum;
+        }
+        bool operator() (const entry& e1, const int64_t timestamp) const { // Used by lower_bound
+            return e1.timestampNum < timestamp;
+        }
+    };
+    
+    vector<entry> masterLog; // Master list of all log entries read in.
+    
+    // Helper data vector that helps with quick retrieval of log entries by original position.
+    vector<uint32_t> masterLogIndices;
+    
+    deque<uint32_t> excerptList; // Excerpt list of log entries using indices.
+    
+    vector<uint32_t> recentSearches; // Storage of entries from recent searches.
+    
+    // Contains every category from the master log file.
+    unordered_map<string, vector<uint32_t>> categoryLog;
+    
+    // Contains every keyword possible in the master log file.
+    unordered_map<string, vector<uint32_t>> keywordLog;
     
     // ----------------------------------------------------------------------------
     //                             SEARCHING COMMANDS
@@ -78,71 +142,12 @@ public:
     // Print all excerpt list entries. (p)
     void printExcerptlist();
     
+    // ----------------------------------------------------------------------------
+    //                              HELPER FUNCTIONS
+    // ----------------------------------------------------------------------------
     
-    
-    
-    
-    // Sorts a helper data structure the first time for constant access later on.
-    void storeOrigMasterLog();
-    
-    
-    
-private:
-    struct entry { // Container for a single log entry.
-        uint32_t entryID;
-        int64_t timestampNum;
-        string timestamp; // make this uint 64 later for comparing???
-        string category;
-        string message;
-    };
-    
-    // Comparator for sorting Master Log List. Sort by timestamp -> category -> entryID.
-    struct logComparator {
-        bool operator()(const entry& e1, const entry& e2) const {
-            if (e1.timestampNum == e2.timestampNum) {
-                if (strcasecmp(e1.category.c_str(), e2.category.c_str()) == 0) {
-                    return e1.entryID < e2.entryID;
-                }
-                else { // CHECK THIS LATER
-                    return (strcasecmp(e1.category.c_str(), e2.category.c_str()) < 0);
-                }
-            }
-            else {
-                return e1.timestampNum < e2.timestampNum;
-            }
-        }
-    };
-    
-    // Comparator for finding lower and upper bounds for timestamps search.
-    struct timestampComparator {
-        bool operator() (const int64_t timestamp, const entry& e1) const { // Used by upper_bound
-            return timestamp < e1.timestampNum;
-        }
-        bool operator() (const entry& e1, const int64_t timestamp) const { // Used by lower_bound
-            return e1.timestampNum < timestamp;
-        }
-    };
-    
-    
-    vector<entry> masterLog; // Master list of all log entries read in.
-    
-    // Helper data vector that helps with quick retrieval of log entries by original position.
-    vector<uint32_t> masterLogIndices;
-    
-    deque<uint32_t> excerptList; // Excerpt list of log entries using indices.
-    
-    vector<uint32_t> recentSearches; // Storage of entries from recent searches.
-    
-    
-    // We will try using the masterlog indices so i do not have to go through master log twice and save time
-    // i.e. populate these vectors as we read in log entries, and not after sorting!!! This will have to depend on entryID
-    unordered_map<string, vector<uint32_t>> categoryLog;
-    
-    unordered_map<string, vector<uint32_t>> keywordLog;
-
-    bool previouslySearched = 0;
-    
-    void populateKeywordLog(const string phrase, uint32_t entryID) {
+    // Helper function to populate the unordered map with all the keywords.
+    void populateKeywordLog(string& phrase, uint32_t entryID) {
         uint32_t startofWord = 0;
         uint32_t endofWord = 0;
         
@@ -152,6 +157,14 @@ private:
                 if (startofWord != endofWord) {
                     // Subtract endofWord and startofWord to get the length.
                     keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
+                    // Duplicates
+                    if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() == 1) {
+                        
+                    }
+                    else if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)][keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() - 2] == entryID) {
+                        keywordLog[phrase.substr(startofWord, endofWord - startofWord)].pop_back();
+                    }
+                    else {}
                 }
                 startofWord = endofWord + 1;
             }
@@ -160,6 +173,13 @@ private:
         // If the last word of the string has not been read in, do that here.
         if (startofWord != phrase.size()) {
             keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
+            if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() == 1) {
+                
+            }
+            else if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)][keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() - 2] == entryID) {
+                keywordLog[phrase.substr(startofWord, endofWord - startofWord)].pop_back();
+            }
+            else {}
         }
     }
 };
