@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>0AE7671B-3715-44FB-88DC-08B7AB1B1F2B</key>
+		<key>12D1A06D-2701-4E3A-813E-8C6B5DCBFE46</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>0AE7671B-3715-44FB-88DC-08B7AB1B1F2B.xcactivitylog</string>
+			<string>12D1A06D-2701-4E3A-813E-8C6B5DCBFE46.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -32,15 +32,15 @@
 			<key>signature</key>
 			<string>Build p3-logman</string>
 			<key>timeStartedRecording</key>
-			<real>638611212.68011606</real>
+			<real>638808710.92193902</real>
 			<key>timeStoppedRecording</key>
-			<real>638611214.78431296</real>
+			<real>638808710.96631801</real>
 			<key>title</key>
 			<string>Build p3-logman</string>
 			<key>uniqueIdentifier</key>
-			<string>0AE7671B-3715-44FB-88DC-08B7AB1B1F2B</string>
+			<string>12D1A06D-2701-4E3A-813E-8C6B5DCBFE46</string>
 		</dict>
-		<key>1B82C662-D7B5-4224-BE63-962776B9EFBD</key>
+		<key>185A3CB1-8154-4027-B315-7C322AF89E8E</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -49,7 +49,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>1B82C662-D7B5-4224-BE63-962776B9EFBD.xcactivitylog</string>
+			<string>185A3CB1-8154-4027-B315-7C322AF89E8E.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -66,15 +66,15 @@
 			<key>signature</key>
 			<string>Build p3-logman</string>
 			<key>timeStartedRecording</key>
-			<real>638609319.04748094</real>
+			<real>638781154.92453599</real>
 			<key>timeStoppedRecording</key>
-			<real>638609319.08009505</real>
+			<real>638781157.39256895</real>
 			<key>title</key>
 			<string>Build p3-logman</string>
 			<key>uniqueIdentifier</key>
-			<string>1B82C662-D7B5-4224-BE63-962776B9EFBD</string>
+			<string>185A3CB1-8154-4027-B315-7C322AF89E8E</string>
 		</dict>
-		<key>2B259647-4C90-4FD1-AD7A-46F716A4BCF6</key>
+		<key>18C06851-45E3-406B-B0AD-0749164C603B</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -83,211 +83,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>2B259647-4C90-4FD1-AD7A-46F716A4BCF6.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638612029.15500998</real>
-			<key>timeStoppedRecording</key>
-			<real>638612031.140396</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>2B259647-4C90-4FD1-AD7A-46F716A4BCF6</string>
-		</dict>
-		<key>395E1AE8-9947-4098-9206-D5A0D721ECDB</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>395E1AE8-9947-4098-9206-D5A0D721ECDB.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638574002.16157699</real>
-			<key>timeStoppedRecording</key>
-			<real>638574004.35083497</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>395E1AE8-9947-4098-9206-D5A0D721ECDB</string>
-		</dict>
-		<key>473F966B-48B0-4CC3-AAF8-3C9DBF612A47</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>473F966B-48B0-4CC3-AAF8-3C9DBF612A47.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638613787.58543897</real>
-			<key>timeStoppedRecording</key>
-			<real>638613790.48370504</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>473F966B-48B0-4CC3-AAF8-3C9DBF612A47</string>
-		</dict>
-		<key>7A767F52-C602-4945-BD4A-0CBDDD0F5985</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>7A767F52-C602-4945-BD4A-0CBDDD0F5985.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638611937.221681</real>
-			<key>timeStoppedRecording</key>
-			<real>638611937.26455104</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>7A767F52-C602-4945-BD4A-0CBDDD0F5985</string>
-		</dict>
-		<key>857A4C5A-5E15-44A4-8F1A-32701D9595F3</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>857A4C5A-5E15-44A4-8F1A-32701D9595F3.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638609008.18098903</real>
-			<key>timeStoppedRecording</key>
-			<real>638609013.57689297</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>857A4C5A-5E15-44A4-8F1A-32701D9595F3</string>
-		</dict>
-		<key>8D5EAD39-2655-42F2-862B-4A7D300C3F8A</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>8D5EAD39-2655-42F2-862B-4A7D300C3F8A.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>p3-logman project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>p3-logman</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Build p3-logman</string>
-			<key>timeStartedRecording</key>
-			<real>638609305.38547301</real>
-			<key>timeStoppedRecording</key>
-			<real>638609307.30494702</real>
-			<key>title</key>
-			<string>Build p3-logman</string>
-			<key>uniqueIdentifier</key>
-			<string>8D5EAD39-2655-42F2-862B-4A7D300C3F8A</string>
-		</dict>
-		<key>928DCD6B-F398-465A-B9BE-98219FC7D02F</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>928DCD6B-F398-465A-B9BE-98219FC7D02F.xcactivitylog</string>
+			<string>18C06851-45E3-406B-B0AD-0749164C603B.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -304,15 +100,15 @@
 			<key>signature</key>
 			<string>Build p3-logman</string>
 			<key>timeStartedRecording</key>
-			<real>638613107.02140296</real>
+			<real>638780756.90928602</real>
 			<key>timeStoppedRecording</key>
-			<real>638613108.13791203</real>
+			<real>638780757.93229997</real>
 			<key>title</key>
 			<string>Build p3-logman</string>
 			<key>uniqueIdentifier</key>
-			<string>928DCD6B-F398-465A-B9BE-98219FC7D02F</string>
+			<string>18C06851-45E3-406B-B0AD-0749164C603B</string>
 		</dict>
-		<key>9DAAE5F7-75BB-4D14-A824-EE5DBEF2AA50</key>
+		<key>1DE6A968-0FC0-40A9-A177-CA5FB0F8C723</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -321,7 +117,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>9DAAE5F7-75BB-4D14-A824-EE5DBEF2AA50.xcactivitylog</string>
+			<string>1DE6A968-0FC0-40A9-A177-CA5FB0F8C723.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -338,15 +134,15 @@
 			<key>signature</key>
 			<string>Build p3-logman</string>
 			<key>timeStartedRecording</key>
-			<real>638611836.164868</real>
+			<real>638779508.12970304</real>
 			<key>timeStoppedRecording</key>
-			<real>638611838.28196001</real>
+			<real>638779509.93929601</real>
 			<key>title</key>
 			<string>Build p3-logman</string>
 			<key>uniqueIdentifier</key>
-			<string>9DAAE5F7-75BB-4D14-A824-EE5DBEF2AA50</string>
+			<string>1DE6A968-0FC0-40A9-A177-CA5FB0F8C723</string>
 		</dict>
-		<key>C2254009-F8D1-4484-9A96-81F8710759CA</key>
+		<key>35A62DD0-CA09-42C4-ADDA-55DA3BD897E1</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -355,7 +151,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>C2254009-F8D1-4484-9A96-81F8710759CA.xcactivitylog</string>
+			<string>35A62DD0-CA09-42C4-ADDA-55DA3BD897E1.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -372,13 +168,523 @@
 			<key>signature</key>
 			<string>Build p3-logman</string>
 			<key>timeStartedRecording</key>
-			<real>638610141.12837303</real>
+			<real>638780762.72975004</real>
 			<key>timeStoppedRecording</key>
-			<real>638610143.81870496</real>
+			<real>638780765.49016702</real>
 			<key>title</key>
 			<string>Build p3-logman</string>
 			<key>uniqueIdentifier</key>
-			<string>C2254009-F8D1-4484-9A96-81F8710759CA</string>
+			<string>35A62DD0-CA09-42C4-ADDA-55DA3BD897E1</string>
+		</dict>
+		<key>3BAABBA4-27A1-4404-9D7E-556F90CCB26A</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>3BAABBA4-27A1-4404-9D7E-556F90CCB26A.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638808594.13860595</real>
+			<key>timeStoppedRecording</key>
+			<real>638808597.326437</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>3BAABBA4-27A1-4404-9D7E-556F90CCB26A</string>
+		</dict>
+		<key>3FD0BBF6-726B-4D04-9A8B-6D681A256F25</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>3FD0BBF6-726B-4D04-9A8B-6D681A256F25.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779408.68448305</real>
+			<key>timeStoppedRecording</key>
+			<real>638779411.37442195</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>3FD0BBF6-726B-4D04-9A8B-6D681A256F25</string>
+		</dict>
+		<key>57D126AE-C2BF-4FA8-9D6E-04481E315CFE</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>57D126AE-C2BF-4FA8-9D6E-04481E315CFE.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779944.810763</real>
+			<key>timeStoppedRecording</key>
+			<real>638779944.84574497</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>57D126AE-C2BF-4FA8-9D6E-04481E315CFE</string>
+		</dict>
+		<key>666B53A5-FD47-4450-911F-4E83AE9E75C0</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>666B53A5-FD47-4450-911F-4E83AE9E75C0.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638808609.73749399</real>
+			<key>timeStoppedRecording</key>
+			<real>638808609.84832704</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>666B53A5-FD47-4450-911F-4E83AE9E75C0</string>
+		</dict>
+		<key>673487EF-4375-40FA-93B3-A3C79C3B9698</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>673487EF-4375-40FA-93B3-A3C79C3B9698.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779928.58625102</real>
+			<key>timeStoppedRecording</key>
+			<real>638779931.83800697</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>673487EF-4375-40FA-93B3-A3C79C3B9698</string>
+		</dict>
+		<key>6B6783D3-DC7C-4406-B84F-B75E9483C844</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6B6783D3-DC7C-4406-B84F-B75E9483C844.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638780962.02372098</real>
+			<key>timeStoppedRecording</key>
+			<real>638780963.09460902</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>6B6783D3-DC7C-4406-B84F-B75E9483C844</string>
+		</dict>
+		<key>6D8D3C80-705E-4446-8460-288E1CA51919</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6D8D3C80-705E-4446-8460-288E1CA51919.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638808760.80841303</real>
+			<key>timeStoppedRecording</key>
+			<real>638808760.93894804</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>6D8D3C80-705E-4446-8460-288E1CA51919</string>
+		</dict>
+		<key>767D430A-8346-4D6F-B61E-63B9B90E5D5E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>767D430A-8346-4D6F-B61E-63B9B90E5D5E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779487.650424</real>
+			<key>timeStoppedRecording</key>
+			<real>638779489.54724205</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>767D430A-8346-4D6F-B61E-63B9B90E5D5E</string>
+		</dict>
+		<key>83158978-A316-4974-AE40-7728B67C7960</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>83158978-A316-4974-AE40-7728B67C7960.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638702159.97397602</real>
+			<key>timeStoppedRecording</key>
+			<real>638702163.23591197</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>83158978-A316-4974-AE40-7728B67C7960</string>
+		</dict>
+		<key>84D02842-3885-4EEA-8D87-318DED78C1CC</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>84D02842-3885-4EEA-8D87-318DED78C1CC.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779207.14707804</real>
+			<key>timeStoppedRecording</key>
+			<real>638779209.92894495</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>84D02842-3885-4EEA-8D87-318DED78C1CC</string>
+		</dict>
+		<key>8CA211F0-E66D-4E2D-B049-103DA3C08B3F</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>8CA211F0-E66D-4E2D-B049-103DA3C08B3F.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779402.57213199</real>
+			<key>timeStoppedRecording</key>
+			<real>638779403.89345801</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>8CA211F0-E66D-4E2D-B049-103DA3C08B3F</string>
+		</dict>
+		<key>B201012A-EE67-412D-93D7-9A0914D77C60</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>B201012A-EE67-412D-93D7-9A0914D77C60.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638779521.925035</real>
+			<key>timeStoppedRecording</key>
+			<real>638779521.96027303</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>B201012A-EE67-412D-93D7-9A0914D77C60</string>
+		</dict>
+		<key>CDFA76A0-22E1-46CE-AC6B-FE603D5C614D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>CDFA76A0-22E1-46CE-AC6B-FE603D5C614D.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638778883.56381404</real>
+			<key>timeStoppedRecording</key>
+			<real>638778885.64993703</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>CDFA76A0-22E1-46CE-AC6B-FE603D5C614D</string>
+		</dict>
+		<key>DBE33BFE-73A0-47F2-8EC5-0DBE4BFE0E84</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>DBE33BFE-73A0-47F2-8EC5-0DBE4BFE0E84.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638808848.10300505</real>
+			<key>timeStoppedRecording</key>
+			<real>638808848.13434196</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>DBE33BFE-73A0-47F2-8EC5-0DBE4BFE0E84</string>
+		</dict>
+		<key>E64F3793-93C3-43CB-A9EF-39BB0017D843</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>E64F3793-93C3-43CB-A9EF-39BB0017D843.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>p3-logman project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>p3-logman</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build p3-logman</string>
+			<key>timeStartedRecording</key>
+			<real>638780330.71155798</real>
+			<key>timeStoppedRecording</key>
+			<real>638780332.43365705</real>
+			<key>title</key>
+			<string>Build p3-logman</string>
+			<key>uniqueIdentifier</key>
+			<string>E64F3793-93C3-43CB-A9EF-39BB0017D843</string>
 		</dict>
 	</dict>
 </dict>

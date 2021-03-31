@@ -37,6 +37,10 @@ private:
     // Switch to see if a previous search was completed for certain command functions.
     bool previouslySearched = 0;
     
+    bool previousTimestampSearch = 0;
+    
+    bool timestampAppended = 0;
+    
     
     // Container for a single log entry.
     struct entry {
@@ -77,6 +81,10 @@ private:
     };
     
     vector<entry> masterLog; // Master list of all log entries read in.
+    
+    vector<entry>::iterator start;
+        // FOR TIMESTAMP SEARCHES
+    vector<entry>::iterator end;
     
     // Helper data vector that helps with quick retrieval of log entries by original position.
     vector<uint32_t> masterLogIndices;
@@ -155,14 +163,15 @@ private:
         for (auto ptr = phrase.c_str(); *ptr != '\0'; ++ ptr) {
             if (!isalnum(*ptr)) {
                 if (startofWord != endofWord) {
+                    string tempPhrase = phrase.substr(startofWord, endofWord - startofWord);
                     // Subtract endofWord and startofWord to get the length.
-                    keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
+                    keywordLog[tempPhrase].push_back(entryID);
                     // Duplicates
-                    if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() == 1) {
+                    if (keywordLog[tempPhrase].size() == 1) {
                         
                     }
-                    else if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)][keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() - 2] == entryID) {
-                        keywordLog[phrase.substr(startofWord, endofWord - startofWord)].pop_back();
+                    else if (keywordLog[tempPhrase][keywordLog[tempPhrase].size() - 2] == entryID) {
+                        keywordLog[tempPhrase].pop_back();
                     }
                     else {}
                 }
@@ -172,12 +181,13 @@ private:
         }
         // If the last word of the string has not been read in, do that here.
         if (startofWord != phrase.size()) {
-            keywordLog[phrase.substr(startofWord, endofWord - startofWord)].push_back(entryID);
-            if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() == 1) {
+            string tempPhrase = phrase.substr(startofWord, endofWord - startofWord);
+            keywordLog[tempPhrase].push_back(entryID);
+            if (keywordLog[tempPhrase].size() == 1) {
                 
             }
-            else if (keywordLog[phrase.substr(startofWord, endofWord - startofWord)][keywordLog[phrase.substr(startofWord, endofWord - startofWord)].size() - 2] == entryID) {
-                keywordLog[phrase.substr(startofWord, endofWord - startofWord)].pop_back();
+            else if (keywordLog[tempPhrase][keywordLog[tempPhrase].size() - 2] == entryID) {
+                keywordLog[tempPhrase].pop_back();
             }
             else {}
         }

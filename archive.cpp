@@ -48,7 +48,7 @@ void archive::readMasterLog(const string& fileName) {
     sort(masterLog.begin(), masterLog.end(), logSort);
     
     // Reserve size of helper container.
-    masterLogIndices.resize(masterLog.size());
+    masterLogIndices.reserve(masterLog.size());
     
     for (uint32_t i = 0; i < masterLog.size(); ++ i) {
         string tempCategory = masterLog[i].category;
@@ -191,9 +191,8 @@ void archive::timestampsSearch() {
     uint32_t totalSearches = 0;
     // Read in rest of input to retrieve timestamp boundaries.
     string timestamp1, timestamp2;
+    cin >> ws;
     getline(cin, timestamp1, '|');
-    // Remove extra space read in using getline delimiter.
-    timestamp1.erase(timestamp1.begin(), timestamp1.begin() + 1);
     cin >> timestamp2;
     
     // Checks if timestamp is valid.
@@ -208,20 +207,17 @@ void archive::timestampsSearch() {
     timestamp2.erase(remove(timestamp2.begin(), timestamp2.end(), ':'), timestamp2.end());
     
     // Set lower and upper iterators to search through timestamps.
-    auto start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp1), timestampComparator());
-    auto end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp2), timestampComparator());
+    start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp1), timestampComparator());
+    end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp2), timestampComparator());
     
-    // Add log entry to recent search and calculate total entries matching timestamp bounds.
-    while (start != end) {
-        recentSearches.push_back(masterLogIndices[(*start).entryID]);
-        ++ totalSearches;
-        ++ start;
-    }
+    totalSearches = static_cast<uint32_t>(distance(start, end));
     
     cout << "Timestamps search: " << totalSearches << " entries found\n";
     
     // Switch to previously searched.
     previouslySearched = 1;
+    previousTimestampSearch = 1;
+    timestampAppended = 0;
 }
 
 // Searches all log entries with timestamps matching the given timestamp. (m)
@@ -246,19 +242,16 @@ void archive::matchingSearch() {
     timestamp.erase(remove(timestamp.begin(), timestamp.end(), ':'), timestamp.end());
     
     // Set lower and upper iterators to search through timestamps.
-    auto start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
-    auto end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
+    start = lower_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
+    end = upper_bound(masterLog.begin(), masterLog.end(), stoll(timestamp), timestampComparator());
     
-    // Add log entry to recent search and calculate total entries matching timestamp.
-    while (start != end) {
-        recentSearches.push_back(masterLogIndices[(*start).entryID]);
-        ++ totalSearches;
-        ++ start;
-    }
+    totalSearches = static_cast<uint32_t>(distance(start, end));
     
     cout << "Timestamp search: " << totalSearches << " entries found\n";
     
     previouslySearched = 1;
+    previousTimestampSearch = 1;
+    timestampAppended = 0;
 }
 
 // Searches all log entries with the matching category. (c)
@@ -286,6 +279,9 @@ void archive::categorySearch() {
     
     // Switch to previously searched.
     previouslySearched = 1;
+    
+    previousTimestampSearch = 0;
+    timestampAppended = 0;
 }
 
 // Searches all log entries that contain every keyword given. (k)
@@ -368,6 +364,9 @@ void archive::keywordSearch() {
     
     // Switch to previously searched.
     previouslySearched = 1;
+    
+    previousTimestampSearch = 0;
+    timestampAppended = 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -396,6 +395,14 @@ void archive::appendLogEntry() {
 // Append all log entries returned by most recent previous search. (r)
 void archive::appendSearchResults() {
     size_t entriesAppended = 0;
+    if (previousTimestampSearch && !timestampAppended) {
+        // Add log entry to recent search and calculate total entries matching timestamp.
+        while (start != end) {
+            recentSearches.push_back(masterLogIndices[(*start).entryID]);
+            ++ start;
+        }
+        timestampAppended = 1;
+    }
     
     // Add all log entries from recent search to excerpt list. Should be sorted already.
     excerptList.insert(excerptList.end(), recentSearches.begin(), recentSearches.end());
@@ -532,6 +539,15 @@ void archive::clearExcerptList() {
 // Print most recent search results by timestamp -> category -> entryID. (g)
 void archive::printRecentSearch() {
     // (EntryID)|(Timestamp)|(Category)|(Message)|Newline
+    if (previousTimestampSearch && !timestampAppended) {
+        // Add log entry to recent search and calculate total entries matching timestamp.
+        while (start != end) {
+            recentSearches.push_back(masterLogIndices[(*start).entryID]);
+            ++ start;
+        }
+        timestampAppended = 1;
+    }
+    
     for (uint32_t i = 0; i < recentSearches.size(); ++ i) {
         cout << masterLog[recentSearches[i]].entryID << "|" << masterLog[recentSearches[i]].timestamp
         << "|" << masterLog[recentSearches[i]].category << "|" << masterLog[recentSearches[i]].message << "\n";
